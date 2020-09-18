@@ -16,14 +16,11 @@ with open(LOCAL_FILE) as f:
         line = line.split(" ")
         if len(line) < 10:
             continue
-        timestamp = datetime.strptime(line.strip("["), "%d/%b/%Y:%H:%M:%S")
+        timestamp = datetime.strptime(line[3].replace("[", ""), "%d/%b/%Y:%H:%M:%S")
     print("This is a Test line: Spot #1")
    
 
 
-
-print("Total request made within the log: ", totalRequest)
-print("Total request made within the last 365 days: ", reqTimeFrame)
 
 print("Total request made within the log: ", totalRequest)
 print("Total request made within the last 365 days: ", reqTimeFrame)
