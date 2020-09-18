@@ -22,7 +22,7 @@ with open(LOCAL_FILE) as f:
         diffTime = datetime(1995,10,11,14,14,17) - timestamp
         if diffTime.days <= timeFrame:
             reqTimeFrame += 1
-    print("This is a Test line: Spot #1")
+    # print("This is a Test line: Spot #1")
    
 
 
