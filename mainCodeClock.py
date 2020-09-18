@@ -13,6 +13,7 @@ totalRequest = 0
 reqTimeFrame = 0
 with open(LOCAL_FILE) as f:
     for line in f:
+        line = line.split(" ")
         if len(line) < 10:
             continue
         timestamp = datetime.strptime(line.strip("["), "%d/%b/%Y:%H:%M:%S")
@@ -20,6 +21,9 @@ with open(LOCAL_FILE) as f:
    
 
 
+
+print("Total request made within the log: ", totalRequest)
+print("Total request made within the last 365 days: ", reqTimeFrame)
 
 print("Total request made within the log: ", totalRequest)
 print("Total request made within the last 365 days: ", reqTimeFrame)
