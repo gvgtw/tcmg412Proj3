@@ -5,8 +5,9 @@ import os
 URL_PATH = 'https://s3.amazonaws.com/tcmg476/http_access_log'
 LOCAL_FILE = 'local_copy.log'
 
-local_file, headers = urllib.request.urlretrieve(URL_PATH, LOCAL_FILE)
-
+if (os.path.isfile(LOCAL_FILE) == False):
+    local_file, headers = urllib.request.urlretrieve(URL_PATH, LOCAL_FILE)
+    
 timeFrame = int(input('how many days back in the log file would you like counted: '))
 
 totalRequest = 0
