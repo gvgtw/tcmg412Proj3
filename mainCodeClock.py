@@ -7,7 +7,7 @@ LOCAL_FILE = 'local_copy.log'
 
 if (os.path.isfile(LOCAL_FILE) == False):
     local_file, headers = urllib.request.urlretrieve(URL_PATH, LOCAL_FILE)
-    
+
 timeFrame = int(input('how many days back in the log file would you like counted: '))
 
 totalRequest = 0
