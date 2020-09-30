@@ -63,9 +63,7 @@ with open(LOCAL_FILE) as f:
         
         temp = line[6]
         fileAccessLog.append(temp)
-        if temp in filesAccessed:
-            continue
-        else:
+        if temp not in filesAccessed:
             filesAccessed.append(temp)
         
 
