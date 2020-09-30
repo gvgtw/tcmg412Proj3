@@ -1,7 +1,6 @@
 from datetime import datetime
 import urllib.request
 import os
-from array import *
 
 URL_PATH = 'https://s3.amazonaws.com/tcmg476/http_access_log'
 LOCAL_FILE = 'local_copy.log'
@@ -12,8 +11,8 @@ if (os.path.isfile(LOCAL_FILE) == False):
 pLog = [[]*5]*1
 avgAccess = [0]
 avgAccessMonthly = [0]
-fileNameList = [0]
-fileNameListNumbers = [0]
+fileAccessLog = []
+filesAccessed = []
 
 uniqueDays = 0
 uniqueMonths = 0
@@ -24,7 +23,9 @@ previousDate = 0
 previousMonth = 0
 
 mostVisitedFile = ""
-lestVisitedFile = ""
+mostVisitedFileScore = 0
+leastVisitedFile = ""
+leastVisitedFileScore = 21000
 
 
 with open(LOCAL_FILE) as f:
@@ -59,22 +60,22 @@ with open(LOCAL_FILE) as f:
             avgAccessMonthly.append(1)
         
         # Counting portion for the most and least requested files
+        
         temp = line[6]
-        k = fileNameList.find(temp)
-        if (k != -1):
-            fileNameListNumbers[fileNameList.index] += 1
+        fileAccessLog.append(temp)
+        if temp in filesAccessed:
+            continue
         else:
-            fileNameList.append(temp)
-            fileNameListNumbers.append(1)
-
+            filesAccessed.append(temp)
+        
 
 
         totalRequest += 1
         pLog.append(line)
-        """
-        if totalRequest == 100:
-            break
-        """
+
+        # if totalRequest == 100:
+        #     break
+        
     # Auto Closing of file stream
 
 sumofDays = sum(avgAccess)
@@ -86,7 +87,18 @@ sumofMonths = sum(avgAccessMonthly)
 totalofMonths = len(avgAccessMonthly) - 1
 averageofMonths = sumofMonths / totalofMonths
 
+for x in filesAccessed:
+    score = fileAccessLog.count(x)
+    if mostVisitedFileScore < score:
+        mostVisitedFile = x
+        mostVisitedFileScore = score
+    if leastVisitedFileScore > score:
+        leastVisitedFile = x
+        leastVisitedFileScore = score
+
+
 del pLog[0]
+del fileAccessLog[0]
 
 # print (pLog)
 print("Total request made within the log:                                   |   ", totalRequest)
@@ -103,5 +115,5 @@ print("What percentage of the request were redirected elsewhere:            |   
 print("-----------------------------------------------------------------------------------------------------")
 print("Most-requested file:                                                 |   ", mostVisitedFile)
 print("-----------------------------------------------------------------------------------------------------")
-print("Least-requested file:                                                 |   ", leastVisitedFile)
+print("Least-requested file:                                                |   ", leastVisitedFile)
 print("-----------------------------------------------------------------------------------------------------")
